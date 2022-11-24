@@ -816,31 +816,42 @@ public class Evaluar
         pruebaD = 30;
         var pruebaBI = new System.Numerics.BigInteger(pruebaD);
         var resBI = Fact(pruebaBI);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaBI, resBI);
+        Console.WriteLine("La factorialB de {0} es {1}", pruebaBI, resBI);
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
         pruebaD = -3;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
         pruebaD = 3;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
-        pruebaD = 30;
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
+        pruebaD = 17;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
         pruebaD = 18;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
+        pruebaBI = new System.Numerics.BigInteger(pruebaD);
+        resBI = Fact(pruebaBI);
+        Console.WriteLine("La factorialB de {0} es {1}", pruebaBI, resBI);
+        pruebaD = 19;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
+        pruebaBI = new System.Numerics.BigInteger(pruebaD);
+        resBI = Fact(pruebaBI);
+        Console.WriteLine("La factorialB de {0} es {1}", pruebaBI, resBI);
         pruebaD = 0.8;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
         pruebaD = -0.8;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
         pruebaD = 1.44;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
         pruebaD = -1.44;
         resD = Fact(pruebaD);
-        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        Console.WriteLine("La factorial  de {0} es {1}", pruebaD, resD);
         //return;
 
         Console.Write("Indica las letras a comprobar (0 para no comprobar cadenas) [{0}]: ", vocales);
@@ -999,14 +1010,26 @@ public class Evaluar
         }
     }
 
-    public static System.Numerics.BigInteger Fact(System.Numerics.BigInteger a)
+    /// <summary>
+    /// Muestra la factorial del número indicado (solo para números enteros positivos).
+    /// </summary>
+    /// <param name="number">El número para saber la factorial.</param>
+    /// <returns>Un valor de tipo BigInteger con la factorial.</returns>
+    public static System.Numerics.BigInteger Fact(System.Numerics.BigInteger number)
     {
-        if (a <= 1) return 1;
-        if (a == 2) return a;
-        return a * Fact(a - 1);
+        if (number <= 1) return 1;
+        if (number == 2) return number;
+        return number * Fact(number - 1);
     }
 
     // El valor más alto sin mostrar notación exponencial es 18
+
+    /// <summary>
+    /// Muestra la factorial del número indicado para todos los números salvo los enteros negativos.
+    /// </summary>
+    /// <param name="number">El número para saber la factorial.</param>
+    /// <returns>Un valor de tipo double con la factorial.</returns>
+    /// <remarks>El valor más alto sin mostrar notación exponencial es 18</remarks>
     public static double Fact(double number)
     {
         if (number == 0) return 1;
@@ -1032,7 +1055,8 @@ public class Evaluar
         }
 
         // Calcularlo multiplicando el número hasta el 2.
-        for (double i = number - 1; i > 1; --i)
+        //for (double i = number - 1; i > 1; --i)
+        for (double i = number - 1; i > 1; i--)
         {
             number *= i;
         }
