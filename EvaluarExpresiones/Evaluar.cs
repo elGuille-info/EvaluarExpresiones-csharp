@@ -323,12 +323,32 @@ public class Evaluar
         }
 
         int cuantos;
-        String op1 = null, op2;
+        String op2;
         // Para que tenga un valor asignado,
         //  antes del return resultado del final ya estará asignada correctamente.
         double resultado = -1;
         TuplePair<Character, Integer> donde;
         int desde;
+        double res1, res2;
+
+        while (true)
+        {
+            // Comprobar si se ha indicado el signo de factorial ! (23/nov/22 14.18)
+            desde = expression.IndexOf('!');
+            if (desde == -1)
+            {
+                break;
+            }
+            //op2 = expression.substring(0, desde);
+            op2 = expression[0..desde];
+            op2 = buscarUnNumero(op2, true);
+            res1 = Double.Parse(op2);
+            res2 = Fact(res1);
+            expression = expression.Replace(op2 + "!", res2.ToString());
+        }
+
+        // Para asegurarme que no use op1 antes de este bucle while.
+        String op1 = null;
 
         while (true)
         {
@@ -398,8 +418,6 @@ public class Evaluar
                     return -1;
                 }
             }
-
-            double res1, res2;
 
             // Asignar todos los caracteres hasta el signo al primer operador.
             //op1 = expression.substring(desde, donde.position).trim();
@@ -795,6 +813,36 @@ public class Evaluar
         double resD;
         double pruebaD;
 
+        pruebaD = 30;
+        var pruebaBI = new System.Numerics.BigInteger(pruebaD);
+        var resBI = Fact(pruebaBI);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaBI, resBI);
+        pruebaD = -3;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        pruebaD = 3;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        pruebaD = 30;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        pruebaD = 18;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        pruebaD = 0.8;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        pruebaD = -0.8;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        pruebaD = 1.44;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        pruebaD = -1.44;
+        resD = Fact(pruebaD);
+        Console.WriteLine("La factorial de {0} es {1}", pruebaD, resD);
+        //return;
+
         Console.Write("Indica las letras a comprobar (0 para no comprobar cadenas) [{0}]: ", vocales);
 
         res = Console.ReadLine();
@@ -858,7 +906,7 @@ public class Evaluar
 
         }
 
-        expression = "25+(2(7*2)2)";
+        expression = "25+(2(3+2)!*2)";
         expression = "(" + expression + ")";
         Console.Write("Escribe una expresión a evaluar (0 para mostrar las pruebas) [{0}] ", expression);
         res = Console.ReadLine();
@@ -883,10 +931,10 @@ public class Evaluar
         else
         {
             Console.WriteLine();
-            Console.WriteLine("Pruebas operaciones (Java y Evaluar):");
+            Console.WriteLine("Pruebas operaciones (C# y Evaluar):");
             expression = "25+(2*(7*2)+2)";
             pruebaD = 25 + (2 * (7 * 2) + 2);
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             expression = "25+(2(7*2)+2)";
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
@@ -894,27 +942,27 @@ public class Evaluar
 
             expression = "1.5*3+12-(-15+5)*2 + 10%3";
             pruebaD = 1.5 * 3 + 12 - (-15 + 5) * 2 + 10 % 3;
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
 
             expression = "17 * ((12+5) * (7-2)) ";
             pruebaD = 17 * ((12 + 5) * (7 - 2));
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
 
             expression = "1+2*3+6";
             pruebaD = 1 + 2 * 3 + 6;
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
             expression = "99-15+2*7";
             pruebaD = 99 - 15 + 2 * 7;
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
@@ -922,14 +970,14 @@ public class Evaluar
             // 6^2 / 2(3) + 4 (6 ^ 2 es 6 OR 2)
             pruebaD = 36.0 / 2 * (3) + 4;
             expression = "36.0 / 2*(3) +4";
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
             // 6/2(2+1)
             pruebaD = 6.0 / 2 * (2 + 1);
             expression = "6.0/2*(2+1)";
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
@@ -937,17 +985,102 @@ public class Evaluar
             //6/(2(2+1))
             pruebaD = 6.0 / (2 * (2 + 1));
             expression = "6.0/(2*(2+1))";
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
             // 2 – (10 x 2) / 6
             pruebaD = 2 - (10.0 * 2) / 6;
             expression = "2 - (10.0 * 2) / 6";
-            Console.Write("Java dice: {0} = {1}\n", expression, pruebaD);
+            Console.Write("C# dice: {0} = {1}\n", expression, pruebaD);
             Console.Write("Evaluar dice: {0} = ", expression);
             resD = Evaluar.evaluar(expression);
             Console.WriteLine(resD);
         }
     }
+
+    public static System.Numerics.BigInteger Fact(System.Numerics.BigInteger a)
+    {
+        if (a <= 1) return 1;
+        if (a == 2) return a;
+        return a * Fact(a - 1);
+    }
+
+    // El valor más alto sin mostrar notación exponencial es 18
+    public static double Fact(double number)
+    {
+        if (number == 0) return 1;
+        if (number == 2) return number;
+        //return a * Fact(a - 1);
+
+        // Comprobar si el número es un entero negativo sin decimales.
+        if (number < 0)
+        {
+            double numAbs = Math.Abs(number);
+            double fPart = numAbs - (long)numAbs;
+            if (fPart == 0)
+            {
+                Console.WriteLine("\tError en factorial de {0} (entero negativo), se asigna 1.", number);
+                return 1;
+            }
+        }
+
+        // Si no es un número natural (o menor de cero) usar la función gamma.
+        if (number % 1 != 0 || number < 0)
+        {
+            return gamma(number + 1);
+        }
+
+        // Calcularlo multiplicando el número hasta el 2.
+        for (double i = number - 1; i > 1; --i)
+        {
+            number *= i;
+        }
+        return number;
+    }
+
+    static double gamma(double z)
+    {
+        var g = 7;
+        double[] C = { 0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7 };
+
+        if (z < 0.5) return Math.PI / (Math.Sin(Math.PI * z) * gamma(1 - z));
+        else
+        {
+            z -= 1;
+
+            var x = C[0];
+            for (var i = 1; i < g + 2; i++)
+                x += C[i] / (z + i);
+
+            var t = z + g + 0.5;
+            return Math.Sqrt(2 * Math.PI) * Math.Pow(t, (z + 0.5)) * Math.Exp(-t) * x;
+        }
+    }
+
+        //function gamma(n)
+        //{  // accurate to about 15 decimal places
+        //   //some magic constants 
+        //    var g = 7, // g represents the precision desired, p is the values of p[i] to plug into Lanczos' formula
+        //        p = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+        //    if (n < 0.5)
+        //    {
+        //        return Math.PI / Math.sin(n * Math.PI) / gamma(1 - n);
+        //    }
+        //    else
+        //    {
+        //        n--;
+        //        var x = p[0];
+        //        for (var i = 1; i < g + 2; i++)
+        //        {
+        //            x += p[i] / (n + i);
+        //        }
+        //        var t = n + g + 0.5;
+        //        return Math.sqrt(2 * Math.PI) * Math.pow(t, (n + 0.5)) * Math.exp(-t) * x;
+        //    }
+        //}
+        //function factorial(n)
+        //{
+        //    return gamma(n + 1);
+        //}
 }
